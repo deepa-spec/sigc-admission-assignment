@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SIGC Admission 2026 - Chat Board</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#f4f6f9;
+}
+
+/* Full Width Header */
+.header{
+width:100%;
+background:#002147;
+color:white;
+text-align:center;
+padding:25px 0;
+font-size:28px;
+font-weight:bold;
+}
+
+/* Chat Container */
+.chat-container{
+max-width:900px;
+margin:30px auto;
+background:white;
+height:500px;
+overflow-y:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Messages */
+.message{
+margin:10px 0;
+padding:12px 15px;
+border-radius:8px;
+width:fit-content;
+max-width:70%;
+clear:both;
+}
+
+.user{
+background:#007bff;
+color:white;
+float:right;
+text-align:right;
+}
+
+.bot{
+background:#e9ecef;
+float:left;
+}
+
+/* Input Area */
+.input-area{
+max-width:900px;
+margin:20px auto;
+display:flex;
+gap:10px;
+}
+
+input{
+flex:1;
+padding:12px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+button{
+padding:12px 20px;
+background:#002147;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#004080;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+SIGC Admission 2026 – Chat Board
+</div>
+
+<div class="chat-container" id="chat"></div>
+
+<div class="input-area">
+<input type="text" id="input" placeholder="Type your question here...">
+<button onclick="send()">Submit</button>
+</div>
+
+<script>
+
+function send(){
+
+let inputBox = document.getElementById("input");
+let question = inputBox.value.trim();
+
+if(question === "") return;
+
+/* Show user question line by line */
+addMessage(question,"user");
+
+/* Get Specialist Answer */
+let answer = getAnswer(question.toLowerCase());
+
+addMessage(answer,"bot");
+
+inputBox.value="";
+}
+
+function getAnswer(q){
+
+if(q.includes("eligibility")){
+return "Eligibility:\nStudents must complete 12th standard with minimum 50% marks.";
+}
+
+else if(q.includes("fees")){
+return "Course Fees:\nThe total annual fee is Rs. 25,000.\nScholarship options available for eligible students.";
+}
+
+else if(q.includes("apply")){
+return "Application Process:\n1. Visit official website.\n2. Fill online application form.\n3. Upload required documents.\n4. Pay application fee.\n5. Submit before deadline.";
+}
+
+else if(q.includes("last date")){
+return "Last Date:\nThe last date to apply is 30 June 2026.";
+}
+
+else if(q.includes("courses")){
+return "Available Courses:\n1. B.Com\n2. B.Sc Computer Science\n3. BBA\n4. BA English";
+}
+
+else{
+return "Please ask about:\nEligibility\nFees\nApply Process\nLast Date\nCourses";
+}
+
+}
+
+function addMessage(text,type){
+
+let chat = document.getElementById("chat");
+
+let div = document.createElement("div");
+div.className = "message " + type;
+
+/* Line break support */
+div.innerHTML = text.replace(/\n/g,"<br>");
+
+chat.appendChild(div);
+
+chat.scrollTop = chat.scrollHeight;
+}
+
+</script>
+
+</body>
+</html>
